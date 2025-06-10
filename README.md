@@ -1,6 +1,6 @@
 # Solar System by Devesh
 
-A 3D interactive solar system simulation built with Three.js.
+A 3D interactive solar system simulation built with Three.js and Vite.
 
 ## Features
 - Realistic planet textures and orbits
@@ -27,20 +27,17 @@ A 3D interactive solar system simulation built with Three.js.
 3. **Textures**
    - All required planet texture images are already included in the `textures` folder in this repository. You do not need to add them manually.
 
-4. **Start a local server**
-   (You can use any static server. Here are two options:)
-   
-   **Option 1: Using npm [http-server]**
+4. **Start the development server**
    ```bash
-   npx http-server .
+   npm run dev
    ```
-   Then open [http://localhost:8080](http://localhost:8080) in your browser.
+   Then open the URL shown in your terminal (typically [http://localhost:5173](http://localhost:5173)) in your browser.
 
-   **Option 2: Using Python (if installed)**
+5. **Build for production**
    ```bash
-   python -m http.server 8000
+   npm run build
    ```
-   Then open [http://localhost:8000](http://localhost:8000) in your browser.
+   The built files will be in the `dist` directory.
 
 ## Usage
 - Open the app in your browser.
@@ -50,11 +47,11 @@ A 3D interactive solar system simulation built with Three.js.
 
 ## Notes
 - For best performance, use a modern browser (Chrome, Firefox, Edge).
-- If you add or change textures, update the paths in `main.js` if needed.
+- If you add or change textures, update the paths in `src/main.js` if needed.
 
 ## Credits
 - Built with [Three.js](https://threejs.org/)
-- GUI by [lil-gui](https://lil-gui.georgealways.com/)
+- Bundled with [Vite](https://vitejs.dev/)
 - Textures from NASA and other public domain sources
 
 ---
