@@ -1,17 +1,14 @@
 {
   "name": "solar-system",
   "version": "1.0.0",
-  "description": "Interactive 3D Solar System using Three.js",
-  "main": "index.js",
+  "description": "3D interactive solar system simulation",
+  "main": "main.js",
   "scripts": {
-    "start": "vite",
-    "build": "vite build"
+    "start": "http-server ."
   },
-  "dependencies": {
-    "three": "^0.162.0",
-    "lil-gui": "^0.19.2"
-  },
+  "author": "Devesh",
+  "license": "MIT",
   "devDependencies": {
-    "vite": "^5.1.4"
+    "http-server": "^14.1.1"
   }
 } 
