@@ -65,15 +65,15 @@ const textureLoader = new THREE.TextureLoader();
 
 // Load textures from local folder
 const textures = {
-    sun: textureLoader.load('/textures/sun.jpg'),
-    mercury: textureLoader.load('/textures/mercury.jpg'),
-    venus: textureLoader.load('/textures/venus.jpg'),
-    earth: textureLoader.load('/textures/earth.jpg'),
-    mars: textureLoader.load('/textures/mars.jpg'),
-    jupiter: textureLoader.load('/textures/jupiter.jpg'),
-    saturn: textureLoader.load('/textures/saturn.jpg'),
-    uranus: textureLoader.load('/textures/uranus.jpg'),
-    neptune: textureLoader.load('/textures/neptune.jpg')
+    sun: textureLoader.load('./textures/sun.jpg'),
+    mercury: textureLoader.load('./textures/mercury.jpg'),
+    venus: textureLoader.load('./textures/venus.jpg'),
+    earth: textureLoader.load('./textures/earth.jpg'),
+    mars: textureLoader.load('./textures/mars.jpg'),
+    jupiter: textureLoader.load('./textures/jupiter.jpg'),
+    saturn: textureLoader.load('./textures/saturn.jpg'),
+    uranus: textureLoader.load('./textures/uranus.jpg'),
+    neptune: textureLoader.load('./textures/neptune.jpg')
 };
 
 // Create planets
