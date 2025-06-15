@@ -3,12 +3,21 @@
   "version": "1.0.0",
   "description": "3D interactive solar system simulation",
   "main": "main.js",
+  "type": "module",
   "scripts": {
-    "start": "http-server ."
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "author": "Devesh",
   "license": "MIT",
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "lil-gui": "^0.20.0",
+    "three": "^0.177.0"
   }
-} 
+}
