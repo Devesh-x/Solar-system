@@ -60,20 +60,43 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
 directionalLight.position.set(5, 5, 5);
 scene.add(directionalLight);
 
-// Texture loader
+// Texture loader with error handling
 const textureLoader = new THREE.TextureLoader();
+textureLoader.crossOrigin = 'anonymous';
+
+const loadTexture = (path) => {
+    return new Promise((resolve, reject) => {
+        textureLoader.load(
+            path,
+            (texture) => resolve(texture),
+            undefined,
+            (error) => {
+                console.error(`Error loading texture ${path}:`, error);
+                reject(error);
+            }
+        );
+    });
+};
 
 // Load textures from local folder
-const textures = {
-    sun: textureLoader.load('./textures/sun.jpg'),
-    mercury: textureLoader.load('./textures/mercury.jpg'),
-    venus: textureLoader.load('./textures/venus.jpg'),
-    earth: textureLoader.load('./textures/earth.jpg'),
-    mars: textureLoader.load('./textures/mars.jpg'),
-    jupiter: textureLoader.load('./textures/jupiter.jpg'),
-    saturn: textureLoader.load('./textures/saturn.jpg'),
-    uranus: textureLoader.load('./textures/uranus.jpg'),
-    neptune: textureLoader.load('./textures/neptune.jpg')
+const loadTextures = async () => {
+    try {
+        const textures = {
+            sun: await loadTexture('./textures/sun.jpg'),
+            mercury: await loadTexture('./textures/mercury.jpg'),
+            venus: await loadTexture('./textures/venus.jpg'),
+            earth: await loadTexture('./textures/earth.jpg'),
+            mars: await loadTexture('./textures/mars.jpg'),
+            jupiter: await loadTexture('./textures/jupiter.jpg'),
+            saturn: await loadTexture('./textures/saturn.jpg'),
+            uranus: await loadTexture('./textures/uranus.jpg'),
+            neptune: await loadTexture('./textures/neptune.jpg')
+        };
+        return textures;
+    } catch (error) {
+        console.error('Error loading textures:', error);
+        throw error;
+    }
 };
 
 // Create planets
@@ -115,14 +138,30 @@ const createPlanet = (radius, texture, distance, orbitSpeed, name) => {
     return { planet, group, orbit };
 };
 
-// Create all planets with their orbital speeds
-const sun = createPlanet(5, textures.sun, 0, 0, 'Sun');
-const mercury = createPlanet(0.4, textures.mercury, 10, 0.04, 'Mercury');
-const venus = createPlanet(0.9, textures.venus, 15, 0.015, 'Venus');
-const earth = createPlanet(1, textures.earth, 20, 0.01, 'Earth');
-const mars = createPlanet(0.5, textures.mars, 25, 0.008, 'Mars');
-const jupiter = createPlanet(2.5, textures.jupiter, 35, 0.002, 'Jupiter');
-const saturn = createPlanet(2, textures.saturn, 40, 0.0009, 'Saturn');
+// Initialize the scene
+const init = async () => {
+    try {
+        const textures = await loadTextures();
+        // Create planets with loaded textures
+        const sun = createPlanet(5, textures.sun, 0, 0, 'Sun');
+        const mercury = createPlanet(0.4, textures.mercury, 10, 0.04, 'Mercury');
+        const venus = createPlanet(0.9, textures.venus, 15, 0.015, 'Venus');
+        const earth = createPlanet(1, textures.earth, 20, 0.01, 'Earth');
+        const mars = createPlanet(0.5, textures.mars, 25, 0.008, 'Mars');
+        const jupiter = createPlanet(2.5, textures.jupiter, 35, 0.002, 'Jupiter');
+        const saturn = createPlanet(2, textures.saturn, 40, 0.0009, 'Saturn');
+        const uranus = createPlanet(1.5, textures.uranus, 45, 0.0004, 'Uranus');
+        const neptune = createPlanet(1.5, textures.neptune, 50, 0.0001, 'Neptune');
+
+        // Start animation
+        animate();
+    } catch (error) {
+        console.error('Failed to initialize scene:', error);
+    }
+};
+
+// Start the application
+init();
 
 // Add Saturn's rings
 const ringGeometry = new THREE.RingGeometry(2.5, 4, 32);
@@ -136,9 +175,6 @@ const ringMaterial = new THREE.MeshPhongMaterial({
 const rings = new THREE.Mesh(ringGeometry, ringMaterial);
 rings.rotation.x = Math.PI / 2;
 saturn.planet.add(rings);
-
-const uranus = createPlanet(1.5, textures.uranus, 45, 0.0004, 'Uranus');
-const neptune = createPlanet(1.5, textures.neptune, 50, 0.0001, 'Neptune');
 
 // Add camera views to state
 const state = {
